@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import  LogisticRegression
 from sklearn import metrics
 from CustomScaler import CustomScaler
+import pickle
 
 def main():
     #### we want to predict Bsenteeism in workplace for empolyess
@@ -91,7 +92,7 @@ def main():
     ### check if the targets are balanced
     #print(targets.sum()/targets.shape[0]) #0.45 is ok (45 to 55)
 
-    data_with_targets=data.drop(['Absenteeism Time in Hours'],axis=1)# not need this anymore
+    data_with_targets=data.drop(['Absenteeism Time in Hours','Day of the Week','Daily Work Load Average','Distance to Work','Unnamed: 0'],axis=1)# not need this anymore
     print(data_with_targets.head())
 
 
@@ -102,8 +103,9 @@ def main():
 
     ##### Standardize the data
 
-    columns_to_scale=['Month Value','Day of the Week','Transportation Expense','Distance to Work' ,'Age',
- 'Daily Work Load Average' ,'Body Mass Index' , 'Children' ,'Pets']
+
+    columns_to_omit=['Reason_1','Reason_2','Reason_3','Reason_4','Education']
+    columns_to_scale=[x for x in unscaled_inputs.columns.values if x not in columns_to_omit]
     absenteeism_scaler=CustomScaler(columns_to_scale)
     absenteeism_scaler.fit(unscaled_inputs)
     scaled_inputs=absenteeism_scaler.transform(unscaled_inputs)
@@ -141,6 +143,21 @@ def main():
     #print(summary_table)
     summary_table=summary_table.sort_values('Odds_ratio',ascending=False)
     print(summary_table) ### most important at the top
+
+    #### TESTING THE MACHINE LEARNING WITH DATA
+
+    print(reg.score(x_test,y_test))
+    predicted_proba=reg.predict_proba(x_test)
+    print(predicted_proba)# left is probality of getting 0 and right probality of getting 1 from the model
+
+
+    #### SAVE THE MODEL
+
+    with open('model','wb') as file:
+        pickle.dump(reg,file)
+    with open('Scaler','wb') as file:
+        pickle.dump(absenteeism_scaler,file)
+
 
 
 
