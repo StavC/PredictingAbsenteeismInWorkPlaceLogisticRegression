@@ -3,9 +3,8 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import  LogisticRegression
-from sklearn.linear_model import LinearRegression
 from sklearn import metrics
-
+from CustomScaler import CustomScaler
 
 def main():
     #### we want to predict Bsenteeism in workplace for empolyess
@@ -99,9 +98,16 @@ def main():
     #### Select the inputs for the regression
 
     unscaled_inputs=data_with_targets.iloc[:,:-1] #getting all the inputs
-    absenteeism_scaler=StandardScaler()
+
+
+    ##### Standardize the data
+
+    columns_to_scale=['Month Value','Day of the Week','Transportation Expense','Distance to Work' ,'Age',
+ 'Daily Work Load Average' ,'Body Mass Index' , 'Children' ,'Pets']
+    absenteeism_scaler=CustomScaler(columns_to_scale)
     absenteeism_scaler.fit(unscaled_inputs)
     scaled_inputs=absenteeism_scaler.transform(unscaled_inputs)
+
     #print(scaled_inputs)
 
     #### Split the data into train and test
