@@ -6,6 +6,7 @@ and predict the probailty that an employee will be absent from work for more tha
 
 the data contains the columns: ID	Reason for Absence	Date	Transportation Expense	Distance to Work	Age	Daily Work Load Average	Body Mass Index	Education	Children	Pets	Absenteeism Time in Hours
 
+# Analyze and Edit the Data
 
 im handling the Reasons for Absence and grouping them to 4 groups and creating Dummies,
 
