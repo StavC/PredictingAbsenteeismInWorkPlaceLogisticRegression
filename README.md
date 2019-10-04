@@ -23,14 +23,18 @@ Dropping some not that usefull data to simplify the model.
 # Machine Learning by LogisticRegression 
 
 Splitting the data to Train and test.
+
 Traning the Model and printing a Summary Table for the intercept and Coefficient.
+
 Printing out the accuracy of the model.
 
 
 # Saving the Model to Module
 
 im saving the model to 'Model', Scaler to 'Scaler'.
+
 Saving the Model that i created to the file 'absenteeism_module.py' and making a file 'MainUsingTheModule.py' to use the module with new data and that it will be ready for deployment
+
 
 
 
